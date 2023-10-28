@@ -4,6 +4,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 import time
 
+import matplotlib.pyplot as plt
+import numpy as np
 
 class Crawler:
     def __init__(self):
@@ -28,11 +30,30 @@ class Crawler:
 
 
 
+class Main:
+    def __init__(self):
+        self.crawler = Crawler()
+        self.stock_ls = ['005930', '005940', '005950']
+        self.price_ls = []
+
+    def update(self):
+        self.price_ls = []
+        for each in self.stock_ls:
+            self.price_ls.append(self.crawler.get_stockprice(each))
+            
+    def show_graph(self):
+        self.update()
+        x = np.arange(len(self.stock_ls))
+        plt.bar(x,self.price_ls)
+        plt.xticks(x,self.stock_ls)
+        plt.show()
+        pass
 
 
-crawler = Crawler()
 
-stock_ls = ['005930', '005940', '005950']
-for i in stock_ls:
-    print(crawler.get_stockprice(i))
+
+main = Main()
+
+main.update()
+main.show_graph()
 
