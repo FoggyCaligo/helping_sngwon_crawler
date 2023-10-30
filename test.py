@@ -53,7 +53,5 @@ class Main:
 
 
 main = Main()
-
-main.update()
 main.show_graph()
 
